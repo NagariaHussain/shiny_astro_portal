@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include shiny_astro_portal *.css
+recursive-include shiny_astro_portal *.csv
+recursive-include shiny_astro_portal *.html
+recursive-include shiny_astro_portal *.ico
+recursive-include shiny_astro_portal *.js
+recursive-include shiny_astro_portal *.json
+recursive-include shiny_astro_portal *.md
+recursive-include shiny_astro_portal *.png
+recursive-include shiny_astro_portal *.py
+recursive-include shiny_astro_portal *.svg
+recursive-include shiny_astro_portal *.txt
+recursive-exclude shiny_astro_portal *.pyc
