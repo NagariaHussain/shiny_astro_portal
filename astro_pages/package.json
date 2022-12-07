@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build --base=/assets/shiny_astro_portal/astro_pages/ && yarn mv-assets",
-    "mv-assets": "mv -f ../shiny_astro_portal/www/assets ../shiny_astro_portal/public/astro_pages/",
+    "mv-assets": "mv -f ../shiny_astro_portal/www/assets ../shiny_astro_portal/public/astro_pages/assets",
     "preview": "astro preview",
     "astro": "astro"
   },
