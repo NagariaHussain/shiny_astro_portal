@@ -4,3 +4,6 @@
 *.swp
 tags
 node_modules
+shiny_astro_portal/www/*
+astro_pages/.astro/*
+shiny_astro_portal/public/astro_pages

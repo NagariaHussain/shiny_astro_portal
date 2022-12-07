@@ -1,0 +1,13 @@
+{
+  "name": "shiny_astro_portal",
+  "version": "1.0.0",
+  "description": "Astro Integrated in a Frappe App",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd astro_pages && yarn run build",
+    "postinstall": "cd astro_pages && yarn install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
