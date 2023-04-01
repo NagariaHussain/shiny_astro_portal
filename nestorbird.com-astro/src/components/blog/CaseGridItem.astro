@@ -1,0 +1,54 @@
+---
+import { Picture } from '@astrojs/image/components';
+
+import { BLOG } from '~/config.mjs';
+import type { Post } from '~/types';
+
+import { findImage } from '~/utils/images';
+import { getPermalink } from '~/utils/permalinks';
+
+export interface Props {
+  casestudy: Post;
+}
+
+const { casestudy } = Astro.props;
+const image = await findImage(casestudy.image);
+---
+
+<article class="swiper-slide mb-6 flex-col flex-1 transition grid-item">
+  <div class="relative md:h-64 bg-gray-400 dark:bg-slate-700 rounded-2xl mb-6">
+    {
+      image && (
+        <Picture
+          src={image}
+          class="md:object-cover w-full md:w-auto md:h-full  rounded-2xl  bg-gray-400 dark:bg-slate-700"
+          widths={[400, 900]}
+          width={400}
+          height={224}
+          sizes="(max-width: 900px) 400px, 900px"
+          alt={casestudy.title}
+          aspectRatio="15:11"
+          loading="lazy"
+          decoding="async"
+        />
+      )
+    } 
+  </div>
+      <a href={getPermalink(casestudy.permalink, 'casestudy')} class="relative text-left font-semibold text-sm case-study pl-5 mb-2">CASE STUDY</a>
+  <h3 class="mb-2 text-lg text-left font-bold leading-tight sm:text-lg text-black font-heading blog-title">
+    {
+      BLOG?.casestudy?.disabled ? (
+      casestudy.title
+      ) : (
+        <a
+          href={getPermalink(casestudy.permalink, 'casestudy')}
+          class="text-black text-left text-lg dark:hover:text-blue-700 hover:underline transition ease-in duration-200"
+        >
+          {casestudy.title}
+        </a>
+      )
+    }
+  </h3>
+  <p class="relative text-left dark:text-black text-xs blog-text mb-6">{casestudy.excerpt || casestudy.description}</p> 
+</article>
+ 

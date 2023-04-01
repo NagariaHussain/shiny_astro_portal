@@ -1,0 +1,47 @@
+---
+import Item from '~/components/blog/GridItem.astro';
+import type { Post } from '~/types';
+import * as Icon from '@astropub/icons'
+
+export interface Props {
+  posts: Array<Post>;
+}
+
+const { posts } = Astro.props;
+---
+<div class="swiper-container grid-wrap blog-cont">
+  <div class="swiper-wrapper flex flex-nowrap gap-10 row-gap-5 -mb-6">
+      {posts.map((post) => <Item post={post} />)}           
+  </div>
+  <div class="grid-pagination">
+      <div class="swiper-button-next"><Icon.ArrowRight height="20" width="60"/></div>
+      <div class="swiper-button-prev"><Icon.ArrowLeft height="20" width="60" /></div>
+  </div>
+</div>
+
+ <!-- Initialize Swiper -->
+<script>
+  new Swiper('.swiper-container.blog-cont', {
+  slidesPerView: 3,
+  initialSlide: 3, 
+  spaceBetween: 0,
+  slidesPerGroupSkip: 1, 
+  loop: true,  
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+  roundLengths: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+        
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+</script>
+        
+ 

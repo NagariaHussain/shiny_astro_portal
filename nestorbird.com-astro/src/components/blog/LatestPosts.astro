@@ -1,0 +1,54 @@
+---
+import Grid from '~/components/blog/Grid.astro';
+
+import { getBlogPermalink } from '~/utils/permalinks';
+import { findLatestPosts } from '~/utils/blog';
+
+export interface Props {
+  title?: string;
+  allPostsText?: string;
+  allPostsLink?: string | URL;
+  information?: string;
+  postIds: string[];
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  allPostsText = 'View all Posts',
+  allPostsLink = getBlogPermalink(),
+  information = await Astro.slots.render('information'),
+  count = 4,
+} = Astro.props;
+
+const posts = await findLatestPosts({ count });
+---
+
+<section class="px-4 py-16 mx-auto max-w-7xl lg:py-20">
+  <div class="flex flex-col lg:justify-between lg:flex-row mb-5">
+    <div class="max-w-4xl">
+      {
+        title && (
+          <h2
+            class="text-3xl font-bold tracking-tight sm:text-4xl sm:leading-none group blog-head font-heading text-gray-900"
+            set:html={title}
+          />
+        )
+      }
+      
+      
+    </div>
+      {
+        allPostsText && allPostsLink && (
+          <a
+            class="text-muted dark:text-slate-400 hover:text-primary transition view-all-post ease-in duration-200 block mb-6 lg:mb-0"
+            href={allPostsLink}
+          >
+            {allPostsText}
+          </a>
+        )
+      }
+    
+  </div>
+{information && <p class="text-muted dark:text-slate-400 text-base blog-information lg:max-w-7xl mb-8" set:html={information} />}
+  <Grid posts={posts} />
+</section>

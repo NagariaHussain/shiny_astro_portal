@@ -1,0 +1,122 @@
+---
+ 
+
+interface Item {
+  boxClass?: string;
+  content?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  link?: string;
+}
+
+export interface Props {
+  boxClass?: string;
+  title?: string;
+  subtitle?: string;
+  highlight?: string;
+  items: Array<Item>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'), 
+  highlight,
+  items = [],
+} = Astro.props;
+---
+
+<section class="relative mx-auto px-4 sm:px-6 lg:max-w-7xl max-lg:max-w-7xl max-sm:w-full ">
+    <div class="py-24 pt-8 sm:py-24 lg:py-24 ">
+      {
+        (title || subtitle || highlight) && (
+          <div class="max-w-7xl">
+            {highlight && (
+              <p
+                class="text-base text-primary dark:text-white font-semibold tracking-wide uppercase"
+                set:html={highlight}
+              />
+            )}
+            {title && (
+              <h2
+                class=" font-semibold mb-2 feature-title"
+                set:html={title}
+              />
+            )}
+
+            {subtitle && (
+              <p
+                class="max-w-full dark:text-white feature-text"
+                set:html={subtitle}
+              />
+            )} 
+          </div>
+        )
+      }
+      <div class={`grid gap-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8  dark:text-white items-stretch color-boxes`}>
+          <div class="feature-wrap ">
+            <div class="swiper-container "> 
+            <div class="swiper-wrapper"> 
+                {
+                  items.map(({boxClass, content, title, description, link }) => ( 
+                      <div id={boxClass} class="swiper-slide relative flex flex-col p-6 rounded hover:shadow-md transition border border-transparent color-bg">                     
+                        <div class=" items-center"> 
+                          {content && <span class="dark:text-white text-md feature-icon" set:html={content} />}
+                          {title && <h3 class="mt-2 font-semibold feature-heading" set:html={title} />} 
+                          </div>
+                          {description && <p class="dark:text-white font-light text-md mt-3" set:html={description} />}
+                          {link && <a href="#" class="dark:text-gray-50 text-md mt-4" > {link} </a> }
+                        </div> 
+                  ))
+                }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+</section>  
+ 
+  <script>
+    var swiper = new Swiper(".swiper-container", {
+      slidesPerView: 3, 
+    spaceBetween: 50,
+    slidesPerGroupSkip: 1,
+    loop: true,     
+    centeredSlides: false,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+        1500: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+      },
+      
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>

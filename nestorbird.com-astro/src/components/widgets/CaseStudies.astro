@@ -1,0 +1,123 @@
+---
+ 
+import * as Icon from '@astropub/icons'
+
+interface Item {
+  content?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  link?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  highlight?: string;
+  link?: string;
+  items: Array<Item>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'), 
+  highlight,
+  items = [],
+} = Astro.props;
+---
+
+<section class="relative">
+  <div class="absolute inset-0  dark:bg-slate-800 pointer-events-none mb-32" aria-hidden="true"></div>
+  <div class="relative lg:max-w-7xl max-lg:max-w-7xl max-sm:w-full mx-auto px-4 sm:px-6 blog-casestudy">
+    <div class="py-36 pb-28">
+      {
+        (title || subtitle || highlight) && (
+          <div class="mb-8 max-w-4xl">
+            {highlight && (
+              <p
+                class="text-base text-primary dark:text-white font-semibold tracking-wide uppercase"
+                set:html={highlight}
+              />
+            )}
+            {title && (
+              <h2
+                class="text-4xl md:text-3xl font-semibold leading-tighter tracking-tight mb-3 "
+                set:html={title}
+              />
+            )}
+
+            {subtitle && (
+              <p
+                class="max-w-full dark:text-white"
+                set:html={subtitle}
+              />
+            )} 
+          </div>
+        )
+      }
+      <div class={`grid gap-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8 dark:text-white items-stretch overflow-hidden case-cont`}>
+        <div class="feature-wrap ">
+          <div class="swiper casestudy-swiper"> 
+            <div class="swiper-wrapper"> 
+                {
+                  items.map(({content, title, description, link }) => (            
+                    <div class="swiper-slide relative flex flex-col p-2 hover:bg-slate-700 hover:bg-opacity-5 transition">
+                       
+                      {content && <a href={link} target="_blank"><span class="dark:text-white text-md mb-4 text-center w-full casestudy-img" set:html={content} /></a>}
+                      {link && <a href={link} target="_blank" class="relative text-left font-semibold text-sm case-study pl-5">CASE STUDY</a>}
+                      {title && <a href={link} target="_blank"><h3 class="mt-2 mb-2 pr-5 text-left font-heading blog-title font-bold sm:text-lg text-black text-lg" set:html={title} /></a>} 
+                       
+                      {description && <a href={link} target="_blank"><p class="relative mb-6 pr-5 blog-text dark:text-black text-left text-xs" set:html={description} /></a>} 
+                    </div>
+        
+                  ))
+                }
+            </div>
+          </div>
+           
+        </div>
+        <div class="relative grid-pagination max-w-xl m-auto">
+          <div class="swiper-button-next"><Icon.ArrowRight height="20" width="60"/></div>
+          <div class="swiper-button-prev"><Icon.ArrowLeft height="20" width="60" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>  
+ 
+  <script>
+    new Swiper(".swiper.casestudy-swiper", {
+    slidesPerView:3,  
+    spaceBetween: 5,
+    slidesPerGroupSkip: 1, 
+    loop: true, 
+    autoplay: false,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 5,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 5,
+        },
+        1500: {
+          slidesPerView: 4,
+          spaceBetween: 5,
+        },
+      },
+      
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>

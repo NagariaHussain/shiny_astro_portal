@@ -1,0 +1,153 @@
+---
+import { Icon } from 'astro-icon';
+import { SITE } from '~/config.mjs';
+import { getHomePermalink } from '~/utils/permalinks';
+import { Image } from '@astrojs/image/components';
+import footerLogo from "../../assets/images/footer-logo.png";
+
+import { IconBrandTwitterFilled } from '@tabler/icons-react';
+
+interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+}
+
+interface Links {
+  title?: string;
+  links: Array<Link>;
+  links2: Array<Links>;
+}
+
+export interface Props {
+  links: Array<Links>;
+  links2: Array<Links>;
+  secondaryLinks: Array<Link>;
+  socialLinks: Array<Link>;
+  footNote?: string;
+  theme?: string;
+}
+
+const { socialLinks = [], secondaryLinks = [], links = [], links2 = [], footNote = '', theme = 'light' } = Astro.props;
+---
+
+<footer class:list={[{ dark: theme === 'dark' }, 'relative dark:border-slate-800']}>
+  <div class="dark:bg-dark absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+  <div class="relative lg:max-w-7xl max-lg:max-w-7xl max-sm:w-full mx-auto sm:px-6 dark:text-slate-300">
+    <div class="grid grid-cols-12 gap-2 gap-y-8 sm:gap-1 py-8 md:py-12">
+      <div class="col-span-12 lg:col-span-4">
+        <div class="mb-2">
+          <a class="inline-block font-bold text-xl" href={getHomePermalink()}><Image src={footerLogo} alt="Nestorbird" />
+          </a>
+          <p class="text-indigo-50 py-6 pr-28 tracking-normal">We at NestorBird Believe in providing solutions that have the power to change the world.</p>
+        </div>
+        <div class="text-sm text-white">
+          <ul class="footer-contact">
+            <li>
+             <Icon name="mdi:envelope-outline" class="w-5 h-5" /> <a href="mailto:info@nestorbird.com">info@nestorbird.com</a>
+            </li>
+            <li>
+             <Icon name="ic:baseline-local-phone" class="w-5 h-5" /> <a class="underline" href="tel:+91-172 4185134">+91-172 4185134</a>  
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-3">
+        <div class="mb-2">
+          <div class="dark:text-gray-300 font-medium mb-2 footer-headings">Location</div>
+        </div>
+        <div class="text-sm text-white">
+          <ul class="transition duration-150 ease-in-out text-indigo-50 footer-address tracking-normal font-light footer-links">
+            <li>
+             <h5 class="text-indigo-50 tracking-normal font-normal">New Zealand</h5>
+             <p class="text-indigo-50 tracking-normal font-light">49 Cumberland Drive, Flagstaff, Hamilton 3219</p>
+            </li>
+            <li>
+              <h5 class="text-indigo-50 tracking-normal font-normal">India</h5>
+              <p class="text-indigo-50 tracking-normal font-light">F - 468, 2nd Floor, Industrial Focal Point, Phase - 8B, Mohali 160071</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      {
+        links.map(({ title, links }) => (
+          <div class="col-span-12 md:col-span-5 lg:col-span-2 columns-1">
+            <div class="font-medium mb-2 footer-headings">{title}</div>
+            {links && Array.isArray(links) && links.length > 0 && (
+              <ul class="text-sm">
+                {links.map(({ text, href, ariaLabel }) => (
+                  <li class="mb-2">
+                    <a
+                      class="text-indigo-50 dark:text-gray-400 transition duration-150 ease-in-out tracking-normal font-light footer-links"
+                      href={href}
+                      aria-label={ariaLabel}
+                    >
+                      <Fragment set:html={text} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+      {
+        links2.map(({ title, links }) => (
+          <div class="col-span-12 md:col-span-5 lg:col-span-3 columns-1">
+            <div class="font-medium mb-2 footer-headings">{title}</div>
+            {links && Array.isArray(links2) && links2.length > 0 && (
+              <ul class="text-sm">
+                {links.map(({ text, href, ariaLabel }) => (
+                  <li class="mb-2">
+                    <a
+                      class="text-indigo-50 dark:text-gray-400 transition duration-150 ease-in-out tracking-normal font-light footer-links"
+                      href={href}
+                      aria-label={ariaLabel}
+                    >
+                      <Fragment set:html={text} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+    </div>
+    <div class="md:flex md:items-center md:justify-between py-6 md:py-4 footer-lower">
+      {
+        socialLinks?.length ? (
+          <ul class="flex md:order-1 -ml-2 md:ml-4 md:mb-0">
+            {socialLinks.map(({ ariaLabel, href, text, icon }) => (
+              <li>
+                <a
+                  class="text-muted dark:text-indigo-50 hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center footer-links"
+                  aria-label={ariaLabel}
+                  href={href}
+                >
+                  {icon && <Icon name={icon} class="w-5 h-5 icon icon-tabler text-white" />}
+                  <Fragment set:html={text} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          ''
+        )
+      }
+      <div class="text-sm mr-4 dark:text-slate-400 copyright-txt">
+        <Fragment set:html={footNote} />
+      </div>
+      {
+            secondaryLinks.map(({ text, href }) => (
+              <a
+                class="text-sm mr-4 dark:text-slate-400 copyright-txt hover:text-indigo-50 transition duration-150 ease-in-out"
+                href={href}
+                set:html={text}
+              />
+            ))
+      }
+    </div>
+  </div>
+</footer>

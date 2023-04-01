@@ -1,0 +1,143 @@
+---
+import { Icon } from 'astro-icon';
+import Logo from '~/components/Logo.astro'; 
+import { getHomePermalink } from '~/utils/permalinks';
+import { Picture } from '@astrojs/image/components';
+import ToggleMenu from '~/components/common/ToggleMenu.astro';
+
+interface Link {
+  text?: string; 
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+  image?: string | any;
+}
+
+interface ActionLink extends Link {
+  type?: string;
+}
+
+interface MenuLink extends Link {
+  links?: Array<Link>;
+}
+
+export interface Props {
+  links?: Array<MenuLink>;
+  actions?: Array<ActionLink>;
+  isSticky?: boolean; 
+  position?: string;
+  image?: string | any;
+}
+
+const {
+  links = [],
+  actions = [],
+  isSticky = false, 
+  position = 'center',
+  image = await Astro.slots.render('image'),
+} = Astro.props;
+---
+
+<header
+  class:list={[
+    { sticky: isSticky, relative: !isSticky },
+    'top-0 z-40 flex-none mx-auto w-full  transition-all ease-in duration-100 max-sm:bg-black md:bg-transparent lg:bg-transparent xl:bg-transparent',
+  ]}
+  id="header"
+>
+  <div class="py-3 md:py-3.5 mx-auto w-full md:flex max-w-7xl md:justify-between md:max-w-7xl max-lg:max-w-7xl max-sm:w-full ">
+    <div class:list={[{"mr-auto": position === "right"}, "flex justify-between"]}>
+      <a class="flex items-start 2xl:lg:mt-0 lg:-mt-1" href={getHomePermalink()}>
+        <Logo />
+      </a> 
+      <div class="flex items-center md:hidden"> 
+        <ToggleMenu />
+      </div>
+    </div>
+    <nav
+      class="items-center w-full md:w-auto hidden md:flex dark:text-slate-200 h-[calc(100vh-72px)] md:h-auto overflow-y-auto md:overflow-visible md:mx-5"
+      aria-label="Main navigation"
+    >
+      <ul class="flex flex-col pt-12 pl-0 md:pt-0 md:flex-row md:self-center w-full md:w-auto text-lg nav-links">
+        {
+          links.map(({ text, href, links }) => (
+            <li class={links?.length ? 'dropdown' : ''}>
+              {links?.length ? (
+                <>
+                  <button class="font-light hover:text-gray-400 dark:hover:text-white px-4 py-3 flex items-center transition duration-150 ease-in-out text-white nav-links">
+                    {text} <Icon name="tabler:chevron-down" class="h-3 w-3"/>
+                  </button>
+                  <ul class="dropdown-menu md:backdrop-blur-md md:absolute pl-4 md:pl-0 md:hidden font-light text-black md:min-w-[200px] drop-shadow-xl bg-neutral-100">
+                    {links.map(({ text: text2, image: image2, href: href2 }) => (
+                      <li class="px-2">
+                        <a
+                          class=" md:hover:bg-black-200 dark:hover:bg-white-700 font-semibold py-3 px-2 whitespace-no-wrap -tracking-tight flex no-underline"
+                          href={href2}
+                        > <img src={image2} alt={text2} />
+                          {text2}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <a
+                  class="font-light hover:text-gray-800 dark:hover:text-blue text-white px-4 py-3 flex items-center transition duration-150 ease-in-out nav-links no-underline"
+                  href={href} 
+                >
+                  {text}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+     
+    <div class:list={[{ 'ml-auto': position === 'left' }, 'md:self-center flex items-center md:mb-0']}>
+      <div class="hidden items-center md:flex"> 
+        
+        {
+          actions?.length ? (
+            <span class="ml-4">
+              {actions.map(({ text, href, type }) => (
+                <button 
+                 type="button"
+                  class:list={[
+                    'btn ml-2 py-2.5 px-5.5 md:px-6 font-semibold shadow-none text-sm header-btn',
+                    { 'btn-ghost': type === 'ghost', 'btn-primary': type === 'primary' },
+                  ]} 
+                  data-bs-toggle="modal" data-bs-target="#contactUs"
+                >
+                  <Fragment set:html={text} />
+                </button> 
+              ))}
+            </span>
+          ) : (
+            ''
+          )
+        }
+        
+      </div>
+      {
+        image && (
+          <div class="relative m-auto max-w-5xl">
+            {typeof image === 'string' ? (
+              <Fragment set:html={image} />
+            ) : (
+              <Picture
+                class="mx-auto w-full "
+                width={1202}
+                height={88}
+                widths={[1202, 1202]}
+                sizes="(max-width: 1202px) 100vw, 88px"
+                aspectRatio="1202:88"
+                {...image}
+              />
+            )}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</header>

@@ -1,0 +1,119 @@
+---
+import { Icon } from 'astro-icon';
+import { Picture } from '@astrojs/image/components';
+
+interface Item {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  highlight?: string;
+  content?: string;
+  items?: Array<Item>;
+  image?: string | any; // TODO: find HTMLElementProps
+ 
+  isAfterContent?: boolean;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  highlight,
+  content = await Astro.slots.render('content'),
+  items = [],
+  image = await Astro.slots.render('image'),
+   
+  isAfterContent = false,
+} = Astro.props;
+---
+
+<section class:list={[{ 'pt-0 md:pt-0': isAfterContent }, ' dark:bg-slate-800 py-16 md:py-24 food-section-bg']}>
+  <div class="max-w-xl sm:mx-auto lg:max-w-2xl">
+    {
+      (title || subtitle || highlight) && (
+        <div class="mb-10 md:mx-auto text-center md:mb-12 max-w-3xl">
+          {highlight && (
+            <p
+              class="text-base text-primary dark:text-blue-200 font-semibold tracking-wide uppercase"
+              set:html={highlight}
+            />
+          )}
+          {title && (
+            <h2
+              class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 font-heading"
+              set:html={title}
+            />
+          )}
+
+          {subtitle && (
+            <p class="max-w-3xl mx-auto sm:text-center text-xl text-muted text-slate-400" set:html={subtitle} />
+          )}
+        </div>
+      )
+    }
+  </div>
+  <div class="md:mx-auto text-center max-w-1xl">
+    <div class={` md:gap-16`}>
+      <div class="self-center">
+        {content && <div class="mb-12 text-lg dark:text-slate-400" set:html={content} />}
+
+        {
+          items && (
+            <div class="space-y-8">
+              {items.map(({ title: title2, description, icon }) => (
+                <div class="flex">
+                  <div class="flex-shrink-0">
+                    <div class="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-gray-50">
+                      <Icon name={icon ? icon : 'tabler:check'} class="w-5 h-5" />
+                    </div>
+                  </div>
+                  <div class="ml-4">
+                    {title2 && <h3 class="text-lg font-medium leading-6 dark:text-white">{title2}</h3>}
+                    {description && <p class="mt-2 text-muted dark:text-slate-400" set:html={description} />}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </div>
+      <div aria-hidden="true" class="mt-10 md:mt-0 self-center m-auto max-w-7xl ">
+        <ul class="flex m-auto justify-around max-w-7xl justify-items-center logos-list">
+            <li>&nbsp;</li>
+            <li><img src="/assets/images/food-vonzzu.webp" alt="India Express" /></li>
+            <li><img src="/assets/images/food-chef-next.webp" alt="Noventive" /></li>
+            <li><img src="/assets/images/food-missflora.webp" alt="Agribora" /></li>
+            <li><img src="/assets/images/food-indian-express.webp" alt="R and K Hospital" /></li>
+            <li><img src="/assets/images/food-mamas.webp" alt="Mallskape" /></li>
+            <li>&nbsp;</li>
+        </ul>
+             
+
+        {
+          image && (
+            <div class="relative m-auto max-w-5xl">
+              {typeof image === 'string' ? (
+                <Fragment set:html={image} />
+              ) : (
+                <Picture
+                  class="mx-auto w-full "
+                  width={1202}
+                  height={88}
+                  widths={[1202, 1202]}
+                  sizes="(max-width: 1202px) 100vw, 88px"
+                  aspectRatio="1202:88"
+                  {...image}
+                />
+              )}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+ 

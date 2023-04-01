@@ -1,0 +1,56 @@
+---
+import { Picture } from '@astrojs/image/components';
+
+import { BLOG } from '~/config.mjs';
+import type { Post } from '~/types';
+
+import { findImage } from '~/utils/images';
+import { getPermalink } from '~/utils/permalinks';
+
+export interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const image = await findImage(post.image);
+---
+
+<article class="swiper-slide mb-6 flex-col flex-1 transition grid-item">
+  <div class="relative md:h-64 bg-gray-400 dark:bg-slate-700 rounded-2xl mb-6">
+    {
+      image && (
+        <Picture
+          src={image}
+          class="md:object-cover w-full md:w-auto md:h-full  rounded-2xl  bg-gray-400 dark:bg-slate-700"
+          widths={[400, 900]}
+          width={400}
+          height={224}
+          sizes="(max-width: 900px) 400px, 900px"
+          alt={post.title}
+          aspectRatio="15:11"
+          loading="lazy"
+          decoding="async"
+        />
+      )
+    }
+    
+      <h2> {post.title}</h2>
+  </div> 
+  <h3 class="mb-2 text-lg text-left font-bold leading-tight sm:text-lg text-black font-heading blog-title">
+    {
+      BLOG?.post?.disabled ? (
+        post.title
+      ) : (
+        <a
+          href={getPermalink(post.permalink, 'post')}
+          class="text-black text-left text-lg dark:hover:text-blue-700 hover:underline transition ease-in duration-200"
+        >
+          {post.title}
+        </a>
+      )
+    }
+  </h3>
+  <p class="relative text-left dark:text-black text-base blog-text mb-6">{post.excerpt || post.description}</p>
+  <a href={getPermalink(post.permalink, 'post')} class="relative text-left font-semibold text-sm read-post">Read Post</a>
+</article>
+ 

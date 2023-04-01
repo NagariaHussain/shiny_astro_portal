@@ -1,0 +1,97 @@
+---
+ 
+import { Picture } from '@astrojs/image/components';
+
+interface Item {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  highlight?: string;
+  content?: string;
+  items?: Array<Item>;
+  image?: string | any; // TODO: find HTMLElementProps
+  isReversed?: boolean;
+  isAfterContent?: boolean;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  highlight,
+  content = await Astro.slots.render('content'),
+  items = [],
+  image = await Astro.slots.render('image'),
+  isReversed = false,
+  isAfterContent = false,
+} = Astro.props;
+---
+
+<section class:list={[{ 'pt-0 md:pt-0': isAfterContent }, ' py-20 arrow-bg']}>
+  <div class="max-w-xl sm:mx-auto lg:max-w-2xl">
+    {
+      (title || subtitle || highlight) && (
+        <div class="mb-10 md:mx-auto text-center md:mb-12 max-w-3xl">
+          {highlight && (
+            <p
+              class="text-base text-primary dark:text-blue-200 font-semibold tracking-wide uppercase"
+              set:html={highlight}
+            />
+          )}
+          {title && (
+            <h3 class="text-lg font-medium leading-6 dark:text-white">{title}</h3>
+          )}
+
+          {subtitle && (
+            <p class="max-w-3xl mx-auto sm:text-center text-xl text-muted dark:text-slate-400" set:html={subtitle} />
+          )}
+        </div>
+      )
+    }
+  </div>
+  <div class="relative mx-auto lg:max-w-7xl max-lg:max-w-7xl max-sm:w-full  p-4 md:px-8">     
+    <div class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16 partner-txt`}>
+      <div class="md:basis-1/2 self-center">
+        {content && <div class="mb-12 pl-24 2xl:pr-24 text-lg dark:text-white" set:html={content} />}
+        {
+          items && (
+            <div class="space-y-8">
+              {items.map(({ title: title2, description }) => (
+                <div class="flex"> 
+                  <div class="ml-4">
+                    {title2 && <h3 class="text-lg font-medium leading-6 dark:text-white">{title2}</h3>}
+                    {description && <p class="mt-2 text-muted dark:text-white" set:html={description} />} 
+                  </div>
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </div>      
+    </div>
+
+    </div> 
+      {
+          image && (
+            <div class="relative arrow-img 2xl:-mt-96">
+              {typeof image === 'string' ? (
+                <Fragment set:html={image} />
+              ) : (
+                <Picture
+                  class="w-fit  "
+                  width="(max-width: auto) "
+                  height="(max-height: auto) "
+                  widths={[1650, 1387]}
+                  sizes="(max-width: 100%) 100vw, 1650px"
+                  aspectRatio="1387:912"
+                  {...image}
+                />
+              )}
+            </div>
+          )
+        }
+</section>

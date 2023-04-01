@@ -1,0 +1,305 @@
+---
+interface Item {
+  name: string;
+  value: string;
+  content?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  highlight?: string;
+  items?: Array<Item>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  content = await Astro.slots.render('content'),
+  highlight,
+  items = [],
+} = Astro.props;
+---
+<section class="relative business-interface"> 
+<div class=" relative  md:flex md:flex-row md:gap-16 pt-28">
+  {
+    (title || subtitle || highlight) && (
+      <div class="mt-10 md:mt-0 pt-36 pl-28 md:basis-1/2 blue-shade-text">
+        {title && (
+          <h2
+            class="business-heading inter pb-2"
+            set:html={title}
+          />
+        )}
+        {subtitle && (
+          <p class="business-sub-heading inter text-l pb-4 mb-4" set:html={subtitle} />
+        )}
+        {content && (
+          <a class="business-btn" href="/" set:html={content} />
+        )}
+        {content && (
+          <img src="/assets/images/Glass.webp" class="mt-16 glass-img" alt="glass"/>
+        )}
+      </div>
+    )
+  }
+  <div class=" mt-10 md:mt-0 md:basis-1/2 p-20">
+    <div class='wrapper'>
+        <div class='carousel'>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/shop-floor.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Quality Management</h2>
+              <p>Multiple Parameter, Quality Check, Workflow 
+                Inspection, Food Standards</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/master-data.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Master Data Management</h2>
+              <p>Configuration Management, User Management Data Compliance,  Supplier-Retailer 
+                Management</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/reports.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Reports</h2>
+              <p>Total Revenue & Sales, Batched Inventory, Supply & Orders, Profit Rates</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/items.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Item Variants</h2>
+              <p>Item Templates, Core Type, Primary Type,Product Permutation, Item Types</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/shop-floor.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Shop Floor Management</h2>
+              <p>Job Cards, Workstation Features, Work Operations, Real-Time Status & Location,Employee Assignment</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/multiunits.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Multiple Units of Measurement</h2>
+              <p>Measure Materials, Unit Conversion, Manage Sales, Manage Purchases, Manage Conversion</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <!-- <img src="/assets/images/customization.webp" alt="shop-floor"> -->
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Customization</h2>
+              <p>Field Customization, Auto Fetching Values, Report Builder & Workflows, Bulk Update Data & Print Format, Document Type</p>
+            </div>
+          </div>
+          <div class='carousel__item'>
+            <div class='carousel__item-head'>
+                <img src="/assets/images/multigual.webp" alt="shop-floor">
+            </div>
+            <div class='carousel__item-body'>
+              <h2 class='title inter'>Multilingual Food Manufacturing</h2>
+              <p>Supports 70+ Languages, Translation Section, Translation Tools, Source Text, Translation Verification</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+
+      </div>
+  </div>
+</div>
+</section>
+
+<style>
+
+    .wrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    .carousel__item {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      width: 600px;
+height: 212px;
+      padding: 0 12px;
+      opacity: 0;
+      filter: drop-shadow(0 2px 2px #555);
+      will-change: transform, opacity;
+      -webkit-animation: carousel-animate-vertical 27s linear infinite;
+              animation: carousel-animate-vertical 27s linear infinite;
+    }
+    
+    .carousel__item:nth-child(1) {
+      -webkit-animation-delay: calc(3s * -1);
+              animation-delay: calc(3s * -1);
+    }
+    
+    .carousel__item:nth-child(2) {
+      -webkit-animation-delay: calc(3s * 0);
+              animation-delay: calc(3s * 0);
+    }
+    
+    .carousel__item:nth-child(3) {
+      -webkit-animation-delay: calc(3s * 1);
+              animation-delay: calc(3s * 1);
+    }
+    
+    .carousel__item:nth-child(4) {
+      -webkit-animation-delay: calc(3s * 2);
+              animation-delay: calc(3s * 2);
+    }
+    
+    .carousel__item:nth-child(5) {
+      -webkit-animation-delay: calc(3s * 3);
+              animation-delay: calc(3s * 3);
+    }
+    
+    .carousel__item:nth-child(6) {
+      -webkit-animation-delay: calc(3s * 4);
+              animation-delay: calc(3s * 4);
+    }
+    
+    .carousel__item:nth-child(7) {
+      -webkit-animation-delay: calc(3s * 5);
+              animation-delay: calc(3s * 5);
+    }
+    
+    .carousel__item:nth-child(8) {
+      -webkit-animation-delay: calc(3s * 6);
+              animation-delay: calc(3s * 6);
+    }
+    
+    .carousel__item:last-child {
+      -webkit-animation-delay: calc(-3s * 2);
+              animation-delay: calc(-3s * 2);
+    }
+    
+    .carousel__item-head {
+      width: 124px;
+      height: 112px;
+      padding: 14px;
+      position: relative;
+      margin-right: -145px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+    
+    .carousel__item-body {
+      width: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 16px 20px 16px 150px
+    }
+    
+    .title {
+      font-weight: 500;
+font-size: 24px;
+line-height: 32px;
+letter-spacing: -0.5px;
+color: #0B1D39;
+    }
+    
+    @-webkit-keyframes carousel-animate-vertical {
+      0% {
+        transform: translateY(100%) scale(0.5);
+        opacity: 0;
+        visibility: hidden;
+      }
+      3%, 11.1111111111% {
+        transform: translateY(100%) scale(0.7);
+        opacity: 0.4;
+        visibility: visible;
+      }
+      14.1111111111%, 22.2222222222% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        visibility: visible;
+      }
+      25.2222222222%, 33.3333333333% {
+        transform: translateY(-100%) scale(0.7);
+        opacity: 0.4;
+        visibility: visible;
+      }
+      36.3333333333% {
+        transform: translateY(-100%) scale(0.5);
+        opacity: 0;
+        visibility: visible;
+      }
+      100% {
+        transform: translateY(-100%) scale(0.5);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+    
+    @keyframes carousel-animate-vertical {
+      0% {
+        transform: translateY(100%) scale(0.5);
+        opacity: 0;
+        visibility: hidden;
+      }
+      3%, 11.1111111111% {
+        transform: translateY(100%) scale(0.7);
+        opacity: 0.4;
+        visibility: visible;
+      }
+      14.1111111111%, 22.2222222222% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        visibility: visible;
+      }
+      25.2222222222%, 33.3333333333% {
+        transform: translateY(-100%) scale(0.7);
+        opacity: 0.4;
+        visibility: visible;
+      }
+      36.3333333333% {
+        transform: translateY(-100%) scale(0.5);
+        opacity: 0;
+        visibility: visible;
+      }
+      100% {
+        transform: translateY(-100%) scale(0.5);
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+      
+      
+      </style>

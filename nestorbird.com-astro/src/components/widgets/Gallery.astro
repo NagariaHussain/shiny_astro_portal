@@ -1,0 +1,58 @@
+---  
+import MyGallery from '~/components/MyGallery.astro';
+
+interface Item {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  highlight?: string;
+  content?: string;
+  items?: Array<Item>;
+  image?: string | any; // TODO: find HTMLElementProps
+  isReversed?: boolean;
+  isAfterContent?: boolean;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  highlight,  
+  isAfterContent = false,
+} = Astro.props;
+---
+
+<section class:list={[{ 'pt-0 md:pt-0': isAfterContent }, '  pt-16 gallery-bg']}>
+  <div class="relative lg:max-w-7xl max-lg:max-w-7xl max-sm:w-full sm:mx-auto ">
+    {
+      (title || subtitle || highlight) && (
+        <div class="mb-2 md:mx-auto text-center md:mb-12 max-w-3xl">
+          {highlight && (
+            <p
+              class="text-base text-primary dark:text-blue-200 font-semibold tracking-wide uppercase"
+              set:html={highlight}
+            />
+          )}
+          {title && (
+            <h2
+              class="text-4xl md:text-5xl font-bold leading-tighter tracking-tighter mb-4 font-heading"
+              set:html={title}
+            />
+          )}
+
+          {subtitle && (
+            <p class="max-w-3xl mx-auto sm:text-center text-l  text-white" set:html={subtitle} />
+          )}
+        </div>
+      )
+    }
+  </div>
+   <div class="relative mt-10 pt-10  sm:mx-auto md:w-full max-lg:max-w-7xl max-sm:w-full self-center gallery">
+        <MyGallery />
+      </div>
+   
+</section>

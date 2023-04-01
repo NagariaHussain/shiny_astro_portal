@@ -1,0 +1,104 @@
+ 
+    <!-- Swiper -->
+  <div class="gallery-curve-top"> </div>
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions1.webp" alt="Nbions1" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions2.webp" alt="Nbions2" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions3.webp" alt="Nbions3" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions4.webp" alt="Nbions4" />
+      </div> 
+    </div>
+   <!-- <div class="swiper-pagination"></div>   -->
+  </div>
+  <div class="gallery-curve-bot md:h-44 2xl:h-48"> </div>
+
+
+  <!-- <div class="swiper mySwiper2 my-640">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions1.webp" alt="Nbions1" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions2.webp" alt="Nbions2" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions3.webp" alt="Nbions3" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/assets/images/nbions4.webp" alt="Nbions4" />
+      </div> 
+    </div>
+  </div> -->
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow", 
+      loop: true,
+      freeMode: true, 
+      centeredSlides: true,
+      slidesPerView:3,  
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      }, 
+      coverflowEffect: {
+        rotate: 5,
+        stretch:-30,
+        depth: -10,
+        modifier: 1, 
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+    });
+    var swiper = new Swiper(".mySwiper2", {
+      effect: "coverflow", 
+      loop: true,
+      freeMode: true, 
+      centeredSlides: true,
+      slidesPerView:3,  
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      }, 
+      coverflowEffect: {
+        rotate: 5,
+        stretch:-30,
+        depth: 200,
+        modifier: 1, 
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 40,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+      1500: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+    },
+    });
+  </script>

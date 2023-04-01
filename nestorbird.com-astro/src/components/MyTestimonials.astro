@@ -1,0 +1,54 @@
+ 
+  <div class="swiper swiperTest">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <p class="text-black text-xl leading-8 tracking-tighter p-1 px-0" data-swiper-parallax="-400">
+                "NestorBird is what I was looking for to set up my business!
+                They Offer different features and if they don't have what you
+                need they create it for you right away depending on your wishes!<br
+                /> Thank you so much guys for your help."
+            </p>
+            <ul class="flex flex-auto mr-auto justify-center items-center mt-8">
+                <li data-swiper-parallax="-300"><img src="/assets/images/anthony.webp" alt="Anthony" /></li>
+                <li class="text-left font-bold px-4"  data-swiper-parallax="-200">
+                    Anthony Gonzalvez<br />
+                    <span class="text-xs">Vonzuu.com</span>
+                </li>
+            </ul>
+        </div>
+        <div class="swiper-slide">
+            <p class="text-black text-xl leading-8 tracking-tighter p-1 px-0" data-swiper-parallax="-400">
+                "We chose NestorBird because they offer a unique combination of
+                expertise in open-source ERP and custom mobile app development
+                under one platform. We are very happy with their software
+                solution which is one of a kind."
+            </p>
+            <ul class="flex flex-auto mr-auto justify-center items-center mt-8">
+                <li data-swiper-parallax="-300">
+                    <img src="/assets/images/agribora.webp" alt="agribora" />
+                </li>
+                <li class="text-left font-bold px-4" data-swiper-parallax="-200">
+                    Nicolas<br />
+                    <span class="text-xs">Agribora</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="testimonial-pagination"></div>
+</div>
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".swiperTest", {
+      speed: 1500,
+      parallax: true,
+      autoplay: false, 
+      loop: true, 
+      centeredSlides: false,
+      slidesPerView:1,         
+      pagination: {
+        el: ".testimonial-pagination",
+        clickable: true
+      },
+    });
+     
+  </script>

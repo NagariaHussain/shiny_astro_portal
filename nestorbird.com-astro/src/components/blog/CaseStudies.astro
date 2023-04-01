@@ -1,0 +1,54 @@
+---
+import Grid from '~/components/blog/CasestudyGrid.astro';
+
+import { getBlogPermalink } from '~/utils/permalinks';
+import { findLatestPosts } from '~/utils/blog';
+
+export interface Props {
+  title?: string;
+  allPostsText?: string;
+  allPostsLink?: string | URL;
+  information?: string;
+  postIds: string[];
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  allPostsText = 'View all Case Studies',
+  allPostsLink = getBlogPermalink(),
+  information = await Astro.slots.render('information'),
+  count = 4,
+} = Astro.props;
+
+const posts = await findLatestPosts({ count });
+---
+
+<section class="px-4 py-16 mx-auto max-w-7xl lg:py-20">
+  <div class="flex flex-col lg:justify-between lg:flex-row mb-8">
+    <div class="max-w-6xl">
+      {
+        title && (
+          <h2
+            class="text-3xl font-bold tracking-tight sm:text-4xl sm:leading-none group font-heading mb-2 text-gray-900"
+            set:html={title}
+          />
+        )
+      }
+      {information && <p class="text-muted dark:text-slate-400 lg:text-lg lg:max-w-4xl" set:html={information} />}
+      
+    </div>
+      {
+        allPostsText && allPostsLink && (
+          <a
+            class="text-muted dark:text-slate-400 hover:text-primary transition ease-in duration-200 block mb-6 lg:mb-0"
+            href={allPostsLink}
+          >
+            {allPostsText}
+          </a>
+        )
+      }
+    
+  </div>
+
+  <Grid posts={posts} />
+</section>

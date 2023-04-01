@@ -1,0 +1,56 @@
+--- 
+
+interface Item {
+  title: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  highlight?: string;
+  content?: string;
+  items?: Array<Item>;
+  image?: string | any; // TODO: find HTMLElementProps
+  isReversed?: boolean;
+  isAfterContent?: boolean;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  highlight, 
+  isAfterContent = false,
+} = Astro.props;
+---
+
+<section class:list={[{ 'pt-0 md:pt-0': isAfterContent }, ' clients-bg w-full']}>
+  <div class="relative px-4 sm:px-6 mx-auto w-full lg:max-w-7xl md:flex md:flex-row items-end">
+    {
+      (title || subtitle || highlight) && (
+        <div class="mb-36 2xl:mb-20 md:ml-0 text-left md:mb-36 max-w-7xl">
+          {highlight && (
+            <p
+              class="text-base text-primary dark:text-blue-200 font-semibold tracking-wide uppercase"
+              set:html={highlight}
+            />
+          )}
+          {title && (
+            <h4
+              class="text-4xl dark:text-black mb-2 tracking-wide font-normal font-heading"
+              set:html={title}
+            />
+          )}
+          {subtitle && (
+            <p class="max-w-3xl sm:text-left text-3xl text-white clients-subtitle" set:html={subtitle} />
+          )}
+        </div>
+      )
+    }
+  </div>   
+    <div class="background-container m-0 p-0 h-screen">
+      <div class="plane"></div>
+      <div class="world-map"></div>
+  </div>
+</section>

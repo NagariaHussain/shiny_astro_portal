@@ -1,0 +1,66 @@
+---
+interface Item {
+  name: string;
+  value: string;
+  content?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  highlight?: string;
+  items?: Array<Item>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  content = await Astro.slots.render('content'),
+  highlight,
+  items = [],
+} = Astro.props;
+---
+<section class="relative dark-bg stats-box"> 
+<!-- <div class="absolute mt-16 blue-shade">&nbsp;</div> -->
+<div class=" relative lg:max-w-7xl max-lg:max-w-7xl max-sm:w-full  mx-auto md:flex md:flex-row md:gap-0    ">
+  {
+    (title || subtitle || highlight) && (
+      <div class="md:mt-0 py-14 pl-4 pr-28 pt-52 md:basis-1/2 blue-shade-text">
+        {highlight && (
+          <p class="text-base text-primary font-semibold tracking-wide uppercase">
+            {highlight}
+          </p>
+        )}
+        {title && (
+          <h2
+            class="max-w-lg mb-6 pt-4 text-3xl font-semibold leading-none sm:text-4xl font-heading "
+            set:html={title}
+          />
+        )}
+        {subtitle && (
+          <p class=" text-base pb-8 " set:html={subtitle} />
+        )}
+        {content && (
+          <p class=" text-base pb-8 " set:html={content} />
+        )}
+      </div>
+    )
+  }
+  <div class=" mt-10 md:mt-0 md:basis-1/2 px-20 pb-20 pt-36 stat-count">
+    {
+      items.map(({content, name, value }) => (
+        <div class="flex max-sm:flex-wrap text-center items-center md:last:border-none py-6 dark:md:border-slate-500 ">
+          <div class="text-left font-heading dark:text-gray-50 lg:text-5xl">
+            {value}
+          </div>
+          <p class="stat-subtitle whitespace-nowrap text-xs flex leading-none items-stretch pl-14 md:border-l flex-wrap uppercase -tracking-tight">
+            {content && <span class="block w-full text-md mb-4" set:html={content} />}
+            <span class="block text-left w-full">{name}</span>
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</div>
+</section>

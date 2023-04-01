@@ -1,0 +1,81 @@
+---
+interface Item {
+    name: string;
+    value: string;
+    content?: string;
+}
+
+export interface Props {
+    title?: string;
+    subtitle?: string;
+    content?: string;
+    highlight?: string;
+    items?: Array<Item>;
+}
+
+const {
+    title = await Astro.slots.render("title"),
+    subtitle = await Astro.slots.render("subtitle"),
+    content = await Astro.slots.render("content"),
+    highlight,
+    items = [],
+} = Astro.props;
+---
+
+<section class="relative why-choose-erp">
+    <div class="text-center inter why-choose-heading">
+        <h2>Why Choose ERP Solution for<br /> Your Food Industry?</h2>
+    </div>
+            <div class="swiper mySwiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class=" relative max-w-7xl mx-auto md:flex md:flex-row md:gap-16">
+                        <div class="mt-10 md:mt-0 md:basis-1/2 blue-shade-text">
+                            <img src="/assets/images/iPad Mini.webp" alt="select-food" />
+                        </div>
+                        <div class=" mt-10 md:mt-0 md:basis-1/2 p-16 pl-12">
+                       <h3 class="inter pt-16 pb-2">Cloud-Based Solution</h3>
+                       <p>The ERPNext Food manufacturing software lets you easily access your business data and manage all workflows from anywhere. Connecting all multiple branches at different locations, you can easily track all orders, payments and requirements in one go.</p>
+                        </div>
+                      </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class=" relative max-w-7xl mx-auto md:flex md:flex-row md:gap-16">
+                        <div class="mt-10 md:mt-0 md:basis-1/2 blue-shade-text">
+                            <img src="/assets/images/iPad Mini.webp" alt="select-food" />
+                        </div>
+                        <div class=" mt-10 md:mt-0 md:basis-1/2 p-16 pl-12">
+                       <h3 class="inter pt-16 pb-2">Cloud-Based Solution</h3>
+                       <p>The ERPNext Food manufacturing software lets you easily access your business data and manage all workflows from anywhere. Connecting all multiple branches at different locations, you can easily track all orders, payments and requirements in one go.</p>
+                        </div>
+                      </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class=" relative max-w-7xl mx-auto md:flex md:flex-row md:gap-16">
+                        <div class="mt-10 md:mt-0 md:basis-1/2 blue-shade-text">
+                            <img src="/assets/images/iPad Mini.webp" alt="select-food" />
+                        </div>
+                        <div class=" mt-10 md:mt-0 md:basis-1/2 p-16 pl-12">
+                       <h3 class="inter pt-16 pb-2">Cloud-Based Solution</h3>
+                       <p>The ERPNext Food manufacturing software lets you easily access your business data and manage all workflows from anywhere. Connecting all multiple branches at different locations, you can easily track all orders, payments and requirements in one go.</p>
+                        </div>
+                      </div>
+                </div>
+              </div>
+              <div class="swiper-button-next swiper-button-next-food"></div>
+              <div class="swiper-button-prev swiper-button-prev-food"></div>
+            </div>
+</section>
+<script is:inline>
+    new Swiper(".mySwiper", {
+      //   autoplay: {
+      //   delay: 2000,
+      // },
+      centeredSlides: true,
+      slidesPerView: 1,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>

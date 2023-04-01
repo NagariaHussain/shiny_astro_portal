@@ -1,0 +1,94 @@
+---
+interface Item {
+  name: string;
+  value: string;
+  content?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  highlight?: string;
+  items?: Array<Item>;
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  content = await Astro.slots.render('content'),
+  highlight,
+  items = [],
+} = Astro.props;
+---
+<section class="relative customer-intrection dark-bg pb-28"> 
+<div class=" relative max-w-7xl mx-auto md:flex md:flex-row md:gap-16 pt-20  ">
+  {
+    (title || subtitle || highlight) && (
+      <div class=" ">
+        {highlight && (
+          <p class="text-base text-primary font-semibold tracking-wide uppercase">
+            {highlight}
+          </p>
+        )}
+        {title && (
+          <h2
+            class="max-w-lg mb-1 text-3xl font-bold leading-none tracking-tight sm:text-4xl uppercase customer-heading inter"
+            set:html={title}
+          />
+        )}
+        {subtitle && (
+          <p class=" text-l pt-2 pb-2 customer-food inter" set:html={subtitle} />
+        )}
+        {content && (
+          <p class=" text-l pb-5 customer-para inter" set:html={content} />
+        )}
+      </div>
+    )
+  }
+  
+</div>
+<div class="flex max-w-7xl mx-auto pt-10">
+    <div class="customer-list1">
+        <ul>
+           <li class="mt-6"><p class="flex inter"><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/global-search.webp"></span><span> Location Based Search</span></p></li>
+           <li class="mt-6"><p class="flex inter"><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/bag-2.webp"></span><span> Shop by Catrgory</span></p></li>
+           <li class="mt-6"><p class="flex inter"><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/discount-shape.webp"></span><span> Shop by Offers</span></p></li>
+           <li class="mt-6"><p class="flex inter"><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/document-filter.webp"></span><span> Filters & Sorting</span></p></li>
+           <li class="mt-6"><p class="flex inter"><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/shiping.webp"></span><span> Free Shipping</span></p></li>
+           <li class="mt-6"><p class="flex inter"><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/coin.webp"></span><span> Special Demo</span></p></li>
+
+        </ul>
+         </div>
+         <div class="customer-list2">
+            <ul>
+               <li class="mt-6"><p class="flex "><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/box-search.webp"></span><span> Product Search</span></p></li>
+               <li class="mt-6"><p class="flex "><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/star.webp"></span><span> Quality Parameters</span></p></li>
+               <li class="mt-6"><p class="flex "><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/FAQ_Icon.webp"></span><span> Frequently Asked Question</span></p></li>
+               <li class="mt-6"><p class="flex "><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/profile-2user.webp"></span><span> Testimonials</span></p></li>
+               <li class="mt-6"><p class="flex "><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/coin.webp"></span><span> Quick Payment</span></p></li>
+               <li class="mt-6"><p class="flex "><span class="mb-2 block text-md mr-7"><img alt="" src="/assets/images/shiping.webp"></span><span> Support</span></p></li>
+
+            </ul>
+             </div>
+</div>
+<div class="relative pt-24 mx-auto max-w-7xl md:flex md:flex-row justify-between">
+  <div class="intraction-img pt-28"> 
+  <img src="/assets/images/intraction-img.webp" alt="intraction-img">
+  </div>
+      <div class="md:basis-1/2  md:flex md:flex-col justify-between Interface-line-head pt-12">
+      
+          <h2 class="max-w-5xl sm:text-5xl inter pt-28">How to Order Food<br/> Using<span class="Trirong"> ERP Software</span></h2>
+          <p class="inter mb-4">From Cart to Table, ERPNext Features have <br/>covered you!
+          </p>
+        <div class="flex mb-12">
+          <img class="mt-1" src="/assets/images/Interface-line.webp" alt="Interface-line">
+          <ul>
+            <li><p class="pt-3 pl-3 inter">Add to Cart</p></li>
+            <li><p class="pt-14 pl-3 inter">Order Summary</p></li>
+            <li><p class="pt-16 pl-3 inter">Checkout</p></li>
+          </ul>
+        </div>
+      </div>
+</div>
+</section>

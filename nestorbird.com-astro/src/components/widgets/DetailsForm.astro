@@ -1,0 +1,66 @@
+---
+export interface Props {
+  hbspt?: string | any;
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  highlight?: string;    
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  content = await Astro.slots.render('content'),
+  highlight, 
+  hbspt,
+} = Astro.props;
+---
+<section class="relative py-20 detail-form-bg">  
+<div class="relative px-4 sm:px-6 mx-auto w-full lg:max-w-7xl md:flex md:flex-row justify-between">
+  {
+    (title || subtitle || highlight || hbspt) && (
+      <div class="md:basis-7/12 md:flex md:flex-col justify-between">
+        {highlight && (
+          <p class="text-base text-primary font-semibold tracking-wide uppercase">
+            {highlight}
+          </p>
+        )}
+        {title && (
+          <h2
+            class="max-w-5xl sm:text-5xl mt-10 -tracking-tight sm:leading-snug font-extrabold font-heading form-section-title"
+            set:html={title}
+          />
+        )}
+        {subtitle && (
+          <p class=" text-l pb-8 " set:html={subtitle} />
+        )}
+        {content && (
+          <a class="font-medium text-l text-black" href="mailto:{content}">{content}</a>
+        )}
+        {hbspt && (          
+          <div id="hubspotForm">{hbspt}</div>
+        )} 
+      </div>
+    )
+  }
+  <div class="md:basis-5/12 p-10 detail-form"> 
+  <h4 class="mb-4">Start Your Project Today!</h4>
+  <div class="relative"> 
+      <script type="text/javascript" charset="UTF-8" src="https://js.hsforms.net/forms/v2.js"></script>
+      <script>     
+          hbspt.forms.create({
+            region: "na1",
+            portalId: "6967036",
+            formId: "334af6bc-1d02-49eb-84e4-7e1e9294df65",
+            target:  "#hubspotForm"
+          }); 
+
+      </script>                
+      <div id="hubspotForm"> </div>
+  </div>
+                
+   <!-- <iframe width="100%" height="540" src="https://share.hsforms.com/1o1Fc95P8QTyLOlf1wn8nRA45bss"></iframe> -->
+   
+  </div>
+</div>
+</section>

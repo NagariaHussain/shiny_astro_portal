@@ -1,0 +1,77 @@
+---
+interface Item {
+    name: string;
+    value: string;
+    content?: string;
+}
+
+export interface Props {
+    title?: string;
+    subtitle?: string;
+    content?: string;
+    highlight?: string;
+    items?: Array<Item>;
+}
+
+const {
+    title = await Astro.slots.render("title"),
+    subtitle = await Astro.slots.render("subtitle"),
+    content = await Astro.slots.render("content"),
+    highlight,
+    items = [],
+} = Astro.props;
+---
+
+<section>
+    <div class="food-footer">
+        <marquee behavior="scroll" direction="left" scrollamount="5"
+            ><h3>
+                By 2025, the revenue of the online food delivery segment is
+                likely to showcase an annual growth rate of 13.23%, which may
+                lead to an expected market volume of $19,591m.
+            </h3>
+        </marquee>
+    </div>
+</section>
+<section class="relative pb-36">
+    <div class="relative max-w-7xl mx-auto md:flex md:flex-row md:gap-16 pt-10">
+        <div class="mt-10 md:mt-0 pt-36 md:basis-1/2 blue-shade-text">
+            <p class="text-l pb-6 case-study-heading">
+                Select your food business to get<br /> the perfect ERP Solution today!
+            </p>
+            <p class="text-l pb-8 pr-12" style="color: #39383F;">
+                Choose the food business you want to start and see how <br
+                />NestorBird solves all challenges by offering you the best <br
+                /> ERP solution for your production or manufacturing <br /> industry
+                today!
+            </p>
+            <div id="dropdown-wrapper" class="dropdown-wrapper" tabindex="1">
+                <span class="inter">Select Your Segment</span>
+                <ul class="dropdown-list">
+                    <li><a href="#">Débora Correia</a></li>
+                    <li><a href="#">Renato Oliveira</a></li>
+                    <li><a href="#">Fernando Lins</a></li>
+                    <li><a href="#">José Menezes</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-10 md:mt-0 md:basis-1/2 pt-36 pl-36">
+            <img src="/assets/images/select-img.webp" alt="select-food" />
+        </div>
+    </div>
+</section>
+<script is:inline>
+    const dd = document.querySelector('#dropdown-wrapper');
+const links = document.querySelectorAll('.dropdown-list a');
+const span = document.querySelector('span');
+
+dd.addEventListener('click', function() {
+  this.classList.toggle('is-active');
+});
+
+links.forEach((element) => {
+  element.addEventListener('click', function(evt) {
+    span.innerHTML = evt.currentTarget.textContent;
+  })
+})
+</script>

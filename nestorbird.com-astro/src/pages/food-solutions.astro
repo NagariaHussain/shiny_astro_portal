@@ -1,0 +1,146 @@
+---
+import { SITE } from '~/config.mjs';
+import Layout from '~/layouts/PageLayout.astro';
+import Foodbanner from '~/components/food-components/food-solutions-banner.astro'; 
+import What from '~/components/food-components/what-we-offer.astro'; 
+import CustomerInterface from '~/components/food-components/customer-interface.astro'; 
+import Business from '~/components/food-components/business-interface.astro'
+import Logos from '~/components/food-components/food-solutions-logo.astro'; 
+import FoodSoftware from '~/components/food-components/food-software-section.astro'
+import Testimonial from '~/components/food-components/food-testimonial.astro'
+import Select from '~/components/food-components/food-select.astro'
+import Whyslider from '~/components/food-components/why-choose-erp.astro'
+// import LatestPosts from '~/components/blog/LatestPosts.astro'; 
+import Foodlast from '~/components/food-components/food-last-section.astro'
+import Blogs from '~/components/widgets/Blogs.astro'; 
+
+const meta = {
+  title: SITE.title,
+  description: SITE.description,
+  dontUseTitleTemplate: true,
+};
+---
+
+<Layout {meta}>
+
+<Foodbanner/>
+
+<What title="What We Offer" subtitle="Empowering Your Business<br /> Growth With ERP Solution"  items={[
+{
+    content: '<img src="/assets/images/what-we-offer1.webp" alt="What We Offer" /> ', 
+    title: 'Web & Mobile Application',
+    description:
+      'A customer-facing solution that connects customers digitally to accelerate growth and maintain quality to increase brand value.',  
+  },
+  {
+    content: '<img src="/assets/images/what-we-offer2.webp" alt="What We Offer2" /> ', 
+    title: 'ERP/CRM Business Solution',
+    description:
+      'Organizations use enterprise resource planning (ERP) software to manage day-to-day business activities such as procurement, Product management, Order management and compliance, and supply chain operations.',  
+  }
+]}
+/>
+  <CustomerInterface 
+  
+  title="Customer Interface"
+  subtitle="Features of ERPNext<span class='Trirong'><br/> Food</span> Solution"
+  content="Get an Interactive Web Experience For Your<br/> Customers Like the Way You Want" 
+
+/>
+
+<Business 
+title="Business Interface"
+subtitle="Features of ERPNext <br/>Food Solution"
+content="Get in touch" 
+/>
+
+ <!-- Logos ****************** -->
+
+ <Logos>
+  <Fragment slot="content">
+    <h3 class="text-4xl font-semibold tracking-tight text-white leading-snug mb-2">Processing <span style="color: #131313;">1 Million</span> Food Orders of Top Global Food<br> Business Brands</h3> 
+  </Fragment>
+</Logos>
+
+<FoodSoftware 
+  
+title="Case Study"
+subtitle="ERPNext's Food Software: <br/>The Best Solution for Your Food <br/>Startup "
+content="Providing a centralized platform, this ERPNext Healthcare Implementation in RYK Hospital helps overcome many challenges like clinical errors, data migration, medical records, and 1alignment of data analytics." 
+/>
+
+
+<Testimonial   
+image={{
+  src: ('/assets/images/food-quate.webp'),
+  alt: 'Logos',
+}}
+>
+<Fragment slot="content">
+  <h3 class="text-5xl font-bold tracking-tight dark:text-white mb-2 testimonial-title">Hear the Success Stories of Our Business Clients!</h3> 
+</Fragment>
+</Testimonial>
+
+<Select/>
+
+<Whyslider/>
+
+<Blogs
+title="From The Blog"
+subtitle="Our blog section is packed with informative, thought-provoking, and engaging content that is sure to appeal to a wide range of readers." 
+items={[
+  {
+    highlight:'ERPNext for Healthcare',
+    content: '<img src="/assets/images/blog-img1.svg" alt=""/> ', 
+    link: 'https://nestorbird.com/Top-9-Trend-to-Watch-in-2023-for-ERPNext-Healthcare',
+    title: 'Top 9 Trends to Watch in 2023 for ERPNext Healthcare',
+    description:
+      "2022 is about to end, and it's high time to open a window for a better future in 2023. Let's see how the top trends of ERPNext Healthcare will give you an insight into progressing waves to expand your business sphere and audience reach in the coming year.",  
+  },
+  {
+    highlight:'Cloud ERP for Education',
+    content: '<img src="/assets/images/blog-img2.svg" alt=""/> ', 
+    link: 'https://nestorbird.com/how-is-cloud-erp-shaping-the-future-of-smart-education',
+    title: 'How Is Cloud ERP Shaping the Future of Smart Education',
+    description:
+    "The education sector has changed drastically over the last few decades. It is slowly migrating from the use of pens and paper to smartphones and laptops. Yet, there is still a lot of room for innovation that could improve education quality by streamlining processes and making them more convenient and up-to-date.",  
+  },
+  {
+    highlight:'Cloud ERP for Education',
+    content: '<img src="/assets/images/blog-img3.svg" alt=""/> ', 
+    link: 'https://nestorbird.com/5-key-points-that-can-help-in-determining-erp-customization',
+    title: '5 Key Points That Can Help in Determining ERP Customization',
+    description:
+    "A key component of optimizing your company's operations is using an ERP solution. You can combine the major elements of your business into a single, centralized system, from development to human resources to supply chain management and analyze data to inform and support your business.",  
+  }  ,
+  {
+    highlight:'ERPNext for Healthcare',
+    content: '<img src="/assets/images/blog-img4.webp" alt=""/> ', 
+    link: 'https://nestorbird.com/blog/general/erpnext-erp-system-for-hospitals-%7C-healthcare-industry-management-software-its-implementation-a-case-study',
+    title: 'ERPNext: ERP System for Hospitals | Healthcare Industry Management Software & Its Implementation',
+    description:
+    "This Medical ERP Software for healthcare industry implemented in community care sectors has changed the scenario of the entire work management module by efficaciously supporting collaborative data functions and enabling a systematic flow to streamline several operations.",  
+  }   ,
+  {
+    highlight:'ERPNext for Healthcare',
+    content: '<img src="/assets/images/blog-img5.jpg" alt=""/> ', 
+    link: 'https://nestorbird.com/blog/general/erpnext-erp-system-for-hospitals-%7C-healthcare-industry-management-software-its-implementation-a-case-study',
+    title: 'This Medical ERP Software for healthcare industry implemented in community care sectors has changed the scenario of the entire work management module by efficaciously',
+    description:
+    "Enterprise resource planning (ERP) can be a game-changer in industries like manufacturing, where efficiency is continually sought yet tough to find. Manufacturing erp is a centralized system for managing all the functionalities of a manufacturing firm such as production, floor management, inventory management, order management, customer management, vendor management and more.",  
+  }  
+]}
+/> 
+
+<Foodlast 
+  
+    title="Ready to fulfill the appetite of foodies with your food business?"
+    subtitle="Get the best open-source modern ERP solution to start your food venture now!"
+    content="Get Started"
+  />
+
+</Layout>
+
+<script is:inline>
+document.body.classList.add('food-solutions');
+</script>

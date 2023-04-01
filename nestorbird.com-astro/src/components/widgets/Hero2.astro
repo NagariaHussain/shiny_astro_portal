@@ -1,0 +1,103 @@
+---
+import { Icon } from 'astro-icon';
+import { Picture } from '@astrojs/image/components';
+ 
+interface CallToAction {
+  text: string;
+  href: string;
+  icon?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  callToAction?: string | CallToAction;
+  callToAction2?: string | CallToAction;
+  image?: string | any; // TODO: find HTMLElementProps
+}
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  content = await Astro.slots.render('content'),
+  callToAction = await Astro.slots.render('callToAction'),
+  callToAction2 = await Astro.slots.render('callToAction2'),
+  image = await Astro.slots.render('image'),
+} = Astro.props;
+---
+
+<section class="relative h-screen w-full  min-h-[500px] lg:min-h-[400px] banner-home" >
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+  <div class="theme-light-gray relative h-screen w-full">
+    <div class="'w-full h-screen absolute top-0 right-0 bottom-0 left-0 z-10">
+      <div class="w-full h-screen">
+        <img src="/assets/videos/banner-video-img.webp?fm=auto&amp;auto=compress,format&amp;fit=min&amp;rect=0,0,3840,2160&amp;w=1440&amp;h=810" width="3840" height="2160" alt="Nestorbird NBions" loading="eager" sizes="(max-width: 744px) 100vw, (max-width: 1280px) 100vw, 100vw" srcset="/assets/videos/banner-video-img.webp?fm=auto&amp;auto=compress,format&amp;fit=min&amp;rect=0,0,3840,2160&amp;w=744&amp;h=419 744w, /assets/videos/banner-video-img.webp?fm=auto&amp;auto=compress,format&amp;fit=min&amp;rect=0,0,3840,2160&amp;w=1280&amp;h=720 1280w, /assets/videos/banner-video-img.webp?fm=auto&amp;auto=compress,format&amp;fit=min&amp;rect=0,0,3840,2160&amp;w=1440&amp;h=810 1440w" aria-hidden="false" class="ratio-content h-full w-full object-cover">
+        </div>
+        
+        </div>
+        <video id="banner-video1" aria-hidden="true" muted="" class="relative z-20 h-screen w-full object-cover transition-opacity duration-300 pointer  visible opacity-100" autoplay="" loop="" playsinline="">
+        <source src="/assets/videos/banner-video1.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+        <div class="absolute bottom-gutter right-gutter z-50 play-pause-btn">
+          <button id="playpauseBtn1" aria-label="Play Pause video" class="ui-button relative px-3 xs:pt-9 xs:pb-1 lg:py-1 xxl:pt-8 xxl:pb-1 w-44 flex items-center justify-between xs:px-0 
+          md:px-4 z-[300] focus:before:border-inverse text-base font-semibold playpauseBtn hover:bg-white hover:text-black hover:transition-all " type="button" aria-hidden="true">
+            <span class="w-screen pauseBtn">
+               <span class="flex items-center justify-between f-ui-1"><img src='/assets/images/pause-icon.svg' width='25'/> Pause video</span>
+            </span> 
+          </button>         
+      </div>
+    </div>
+    <div class="absolute h-screen w-full banner-text">
+      <div class="relative h-screen w-full flex pt-20 items-center justify-center lg:max-w-7xl sm:max-w-screen-sm mx-auto px-4 sm:px-6 ">         
+          <div class="text-center pb-8 max-w-full-lg mx-auto">
+            {
+              title && (
+                <h1
+                  class="text-5xl pb-4 font-bold mb-2 font-heading dark:text-gray-200 main-heading"
+                  set:html={title}
+                />
+              )
+            }
+            <div class="max-w-3xl mx-auto">
+              {subtitle && <p class="text-xl mb-11 text-white" set:html={subtitle} />}
+              <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4">
+                {
+                  callToAction && (
+                    <div class="flex w-full sm:w-auto">
+                      {typeof callToAction === 'string' ? (
+                        <Fragment set:html={callToAction} />
+                      ) : (
+                        <a class="btn btn-primary sm:mb-0 w-full" href={callToAction?.href} target="_blank" rel="noopener">
+                          {callToAction?.icon && (
+                            <>
+                              <Icon name={callToAction.icon} class="w-5 h-5 mr-1 -ml-1.5" />{' '}
+                            </>
+                          )}
+                          {callToAction?.text}
+                        </a>
+                      )}
+                    </div>
+                  )
+                }                 
+              </div>
+            </div>            
+          </div>
+        <div> 
+      </div>
+    </div>     
+  </div>
+</section> 
+<script client:only>
+  var ppbutton1 = document.getElementById("playpauseBtn1");
+  ppbutton1.addEventListener("click", playPause);
+  var myVideo1 = document.getElementById("banner-video1");
+  function playPause() { 
+      if (myVideo1.paused) {
+          myVideo1.play();
+          ppbutton1.innerHTML = "<img src='/assets/images/pause-icon.svg' width='25' height='25'/> Pause video";
+          }
+      else  {
+          myVideo1.pause(); 
+          ppbutton1.innerHTML = "<img src='/assets/images/play-icon.svg' width='25' height='25'/> Play video"  ;
+          }
+  } 
+</script>
